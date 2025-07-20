@@ -1,4 +1,4 @@
-#include "./mode.h"
+#include "./mode_pmr.h"
 
 #include <cassert>
 #include <cstdint>
@@ -21,7 +21,7 @@ struct e_t {
 };
 
 using src_t = std::vector<e_t>;
-using mclct_t = mode_collector<int, uint64_t>;
+using mclct_t = mode_collector_pmr<int, uint64_t>;
 
 void collect(mclct_t& mc, const src_t& dt_in)
 {
@@ -99,7 +99,7 @@ test_instance_t test_cases[] = {
 
 }  // namespace
 
-int main_mode_nopmr()
+int main_mode_pmr()
 {
   //basic_1st_test();
   for (const auto& test : test_cases) {
