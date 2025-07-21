@@ -3,6 +3,8 @@
 // mode.h
 // This header file defines the mode_collector class template for collecting modes from a population of data.
 
+// V2: collect the bad-peers/good-peers sets
+
 #include <fmt/format.h>
 
 #include <algorithm>
@@ -12,9 +14,14 @@
 #include <ranges>
 #include <unordered_map>  // for std::unordered_map
 
+// note the use of std::identity: it's a pretty fast hash function,
+// but we are restricted to size_t sized keys (per stdlib implementation
+// of the unrdered map).
 
 // The inputs are
 template <typename OBJ_ID, typename K, OBJ_ID NO_ID = OBJ_ID{0}>
+// K must fit in size_t due to us using std::identity
+requires (sizeof(K) <= sizeof(size_t))
 class mode_collector {
 
  private:

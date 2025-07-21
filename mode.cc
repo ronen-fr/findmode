@@ -3,10 +3,12 @@
 #include <unordered_map>
 #include <cassert>
 #include <iostream>
+#include <string>
+#include <string_view>
 #include "./mode.h"
 
 using namespace std;
-
+using namespace std::string_literals;
 
 // basic 1st test
 
@@ -28,19 +30,18 @@ void collect(mclct_t& mc, const src_t& dt_in)
 
 void list_res(const mclct_t::res_type_t& res, string nm)
 {
-   int tag = static_cast<int>(res.tag);
-   const string nm_tag = [](int t) {
+   const string_view nm_tag = [](mclct_t::mode_status_t t) {
        switch (t) {
-           case static_cast<int>(mclct_t::mode_status_t::no_mode_value):
+           case mclct_t::mode_status_t::no_mode_value:
                return "..no mode.....";
-           case static_cast<int>(mclct_t::mode_status_t::mode_value):
+           case mclct_t::mode_status_t::mode_value:
                return "..mode_value..";
-           case static_cast<int>(mclct_t::mode_status_t::authorative_value):
+           case mclct_t::mode_status_t::authorative_value:
                return "..autho.......";
            default:
                return "unknown";
        }
-   }(tag);
+   }(res.tag);
    cout << fmt::format("{}: mode result: tag:{},\tkey:{}, id:{}, count:{}\n",
                        nm, nm_tag, res.key, res.id, res.count);
 }
