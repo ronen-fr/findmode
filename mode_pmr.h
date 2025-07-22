@@ -34,7 +34,7 @@ class mode_collector_pmr {
     OBJ_ID m_id{NO_ID};  ///< Store the object ID associated with this value
   };
 
-  std::array<std::byte, 256> m_buffer;  // PMR buffer
+  std::array<std::byte, 1024> m_buffer;  // PMR buffer
   std::pmr::monotonic_buffer_resource m_mbr{
       m_buffer.data(), m_buffer.size(), nullptr};
 
