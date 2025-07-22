@@ -34,7 +34,39 @@ class mode_collector_pmr {
     OBJ_ID m_id{NO_ID};  ///< Store the object ID associated with this value
   };
 
-  std::array<std::byte, 256> m_buffer;  // PMR buffer
+
+  // RRR verify we are not making the one-template const error. RRR
+
+  // estimated (upper limit) to the memory footprint of the unordered_map
+  // Estimate memory footprint of the unordered_map
+  static consteval size_t estimate_map_memory_footprint(
+      size_t num_elements) noexcept
+  {
+    // Bucket array: typically 2x num_elements for good load factor
+    constexpr size_t bucket_overhead = sizeof(void*);
+    const size_t bucket_array_size = (num_elements * 2) * bucket_overhead;
+
+    // Node storage: each element needs a hash node
+    constexpr size_t node_overhead =
+        sizeof(void*) + sizeof(size_t);  // next ptr + hash
+    const size_t node_storage =
+        num_elements * (sizeof(K) + sizeof(node_type_t) + node_overhead);
+
+    // PMR allocator overhead (alignment, bookkeeping)
+    constexpr size_t pmr_overhead_per_alloc =
+        16;  // typical alignment + metadata
+    const size_t total_overhead =
+        pmr_overhead_per_alloc * 2;  // bucket array + nodes
+
+    // now - double everything, just to be safe
+    return (bucket_array_size + node_storage + total_overhead) * 2;
+  }
+
+  // make root for 16 objects (16 nodes, if considering the use in storing
+  // replicas' data)
+  static constexpr const size_t m_estimated_memory_footprint =
+      estimate_map_memory_footprint(16);
+  std::array<std::byte, m_estimated_memory_footprint> m_buffer;  // PMR buffer
   std::pmr::monotonic_buffer_resource m_mbr{
       m_buffer.data(), m_buffer.size(), nullptr};
 
@@ -73,6 +105,11 @@ class mode_collector_pmr {
   {
     m_frequency_map.reserve(population_size);
   }
+
+  // // Check if buffer size is likely sufficient for the given population
+  // static constexpr bool is_buffer_sufficient(size_t population_size) noexcept {
+  //   return estimate_map_memory_footprint(population_size) <= 256;
+  // }
 
   // Add a value to the collector
   void add(OBJ_ID obj, K value) noexcept
