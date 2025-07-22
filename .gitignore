@@ -39,3 +39,30 @@
 
 # debug information files
 *.dwo
+CMakeFiles/cmake.check_cache
+CMakeFiles/CMakeConfigureLog.yaml
+CMakeFiles/CMakeDirectoryInformation.cmake
+CMakeFiles/Makefile.cmake
+CMakeFiles/Makefile2
+CMakeFiles/progress.marks
+CMakeFiles/TargetDirectories.txt
+CMakeFiles/3.30.8/CMakeCXXCompiler.cmake
+CMakeFiles/3.30.8/CMakeDetermineCompilerABI_CXX.bin
+CMakeFiles/3.30.8/CMakeSystem.cmake
+CMakeFiles/3.30.8/CompilerIdCXX/CMakeCXXCompilerId.cpp
+CMakeFiles/mode.dir/build.make
+CMakeFiles/mode.dir/cmake_clean.cmake
+CMakeFiles/mode.dir/compiler_depend.internal
+CMakeFiles/mode.dir/compiler_depend.make
+CMakeFiles/mode.dir/compiler_depend.ts
+CMakeFiles/mode.dir/depend.make
+CMakeFiles/mode.dir/DependInfo.cmake
+CMakeFiles/mode.dir/flags.make
+CMakeFiles/mode.dir/link.txt
+CMakeFiles/mode.dir/progress.make
+CMakeFiles/Progress/1
+CMakeFiles/Progress/2
+CMakeFiles/Progress/count.txt
+compile_commands.json
+cmake_install.cmake
+CMakeCache.txt
