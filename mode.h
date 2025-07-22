@@ -21,7 +21,7 @@
 // The inputs are
 template <typename OBJ_ID, typename K, OBJ_ID NO_ID = OBJ_ID{0}>
 // K must fit in size_t due to us using std::identity
-requires (sizeof(K) <= sizeof(size_t))
+  requires(sizeof(K) <= sizeof(size_t))
 class mode_collector {
 
  private:
@@ -112,4 +112,3 @@ class mode_collector {
         max_elem_cnt};
   }
 };
-
